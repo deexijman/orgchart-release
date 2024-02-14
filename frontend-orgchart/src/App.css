@@ -1,0 +1,136 @@
+.gradient-custom-2 {
+ 
+  background: #622369;
+ 
+  /* background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+ 
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593); */
+ 
+  }
+ 
+  @media (min-width: 768px) {
+  .gradient-form {
+  height: 100vh !important;
+  }
+ 
+ 
+  }
+  @media (min-width: 768px) {
+  .gradient-custom-2 {
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  }
+  }
+ 
+/* Login CSS */
+.login-body{
+ 
+  background-color: #F7F0EA;
+}
+ 
+.login-body button:hover{
+  background-color:#622369 ;
+  opacity: .9;
+}
+.radio-button{
+ display: flex;
+ 
+}
+/* register-css */
+ 
+.register-body{
+  background-color: #ffffff;
+}
+.register-body button{
+  background-color:#622369 ;
+  color: white;
+}
+.register-body button:hover{
+  background-color:#622369 ;
+  opacity: .9;
+}
+ 
+.register-details{
+  background-color: #F7F0EA;
+  border-style:solid;
+  border-color: #622369;
+  border-width: 2px;
+}
+  /* chart css */
+  .org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+ 
+  .node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #9d79a1;
+    border-radius: 10px ;
+    padding: 10px;
+    margin: 10px;
+    border-style: solid;
+    border-width: 3px;
+  }
+ 
+  .details {
+    /* display: grid; */
+    margin-bottom: 8px;
+    min-width: 20rem;
+    /* justify-content: center; */
+  }
+ 
+  .text{
+    display: grid;
+    justify-content: left;
+    padding-left: 10%;
+  }
+ 
+  .arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #ccc;
+    margin-left: 50%;
+   
+  }
+  #line{
+    width: 2px;
+    height: 50px;
+    background-color: #9d79a1;
+    margin-left: 51%;
+ 
+  }
+ 
+  .chart-body{
+    background-color: #F7F0EA;
+    margin: 0;
+    padding: 0px;
+    /* height: 100vh; */
+  }
+  .chart-nav{
+    background-color: #622369;
+  }
+  .chart-nav button{
+    background-color: white;
+  }
+  .chart-nav button:hover{
+    background-color: #622369;
+    border: 1px solid white;
+  }
+ 
+  .iname{
+    font-weight: bold;
+    font-size: medium;
+  }
+  .irole{
+    font-weight:350;
+    font-size: small;
+  }
+  .idpt{
+    font-weight: 499;
+    font-size: small;
+  }
