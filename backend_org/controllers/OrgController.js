@@ -162,7 +162,7 @@ export const getSenior = async (req, res) => {
 export const getSameDesignation = async (req, res) => {
   const reportsTo = req.body.reportsTo;
 
-  console.log('body log',req.body)
+  console.log('body log', req.body)
 
   console.log("Same design check", reportsTo)
 
@@ -185,3 +185,23 @@ export const getSameDesignation = async (req, res) => {
     res.status(500).send("Interal Server Error");
   }
 };
+
+export const getPeopleReportingToCurrentUser = async (req, res) => {
+
+  try {
+
+    const email = req.body.email
+    console.log("Email for once",email)
+
+    const user = await User.find({ reportsTo: email })
+    console.log("Email for once",user)
+
+    res.status(200).json({
+      data: user,
+      message: "Fetched successfully"
+    })
+
+  } catch (e) {
+    res.status(400).send("Failed to fetch")
+  }
+}

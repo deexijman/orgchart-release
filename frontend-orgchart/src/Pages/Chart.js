@@ -7,7 +7,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CardComponent from '../components/CardComponent';
-import { getOrganizationChart, sameDesignationEndpoint } from '../Utils/Endpoints';
+import { getOrganizationChart, sameDesignationEndpoint, getEmployeesReportingTo } from '../Utils/Endpoints';
 import EmployeeCard from '../components/EmployeeCard'
 
 function Chart({ chartdata }) {
@@ -16,6 +16,23 @@ function Chart({ chartdata }) {
   const [userData, setUserData] = useState([])
   const [selectedUser, setSelectedUser] = useState(null);
   const [sameDesignation, setSameDesignation] = useState([])
+  const [reportingTo, setReportingTo] = useState([])
+
+  const callReportingToData = async ({ email }) => {
+    try {
+
+      const response = await axios.post(getEmployeesReportingTo(),
+        {
+          email: email
+        })
+
+      console.log('response from call reporting to : ', response.data)
+      setReportingTo(response.data.data)
+    }
+    catch (error) {
+      console.log("Error response", error.response)
+    }
+  }
 
   const callChartData = async ({ email, reportsTo }) => {
     try {
@@ -38,12 +55,12 @@ function Chart({ chartdata }) {
 
     try {
 
-      console.log("Frontend : ",reportsTo)
+      console.log("Frontend : ", reportsTo)
 
       const response = await axios.post(sameDesignationEndpoint(),
-      {
-        reportsTo: reportsTo
-      })
+        {
+          reportsTo: reportsTo
+        })
 
       setSameDesignation(response.data.data)
 
@@ -107,6 +124,7 @@ function Chart({ chartdata }) {
   }, [selectedUser])
 
 
+
   // update the same design employee list
   useEffect(() => {
 
@@ -137,11 +155,36 @@ function Chart({ chartdata }) {
 
       }
 
-
     }
 
 
   }, [selectedUser])
+
+  // reporting to
+  useEffect(()=>{
+
+    // reporting To
+    if (localStorage.getItem('email') !== null) { // to handle server crash
+
+      if (selectedUser !== undefined && selectedUser !== null) {
+
+        callReportingToData({
+          email: selectedUser.email
+        })
+        //toast.success("Fetched User")
+
+      } else {
+
+        callReportingToData({
+          email: localStorage.getItem('email')
+        })
+
+      }
+
+
+    }
+
+  },[selectedUser])
 
   const searchTemplate = (option, props) => {
     if (option) {
@@ -214,6 +257,26 @@ function Chart({ chartdata }) {
 
           </div>
         </div>
+
+        <div class="container" style={{
+          border: "3px solid #070F2B",
+          padding: '10px',
+          minWidth: '100%',
+          marginTop: '40px'
+        }}>
+
+          
+          <div class="row">
+
+            { reportingTo.map((item, index) => (
+              <div key={index} class="col-lg-4 col-md-6 col-xs-12">
+                <EmployeeCard item={item} />
+              </div>
+            ))}
+
+          </div>
+        </div>
+
 
       </div>
     </div>

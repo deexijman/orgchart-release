@@ -30,6 +30,10 @@ function sameDesignationEndpoint(){
     return "http://localhost:4000/api/org/samedesignation"
 }
 
+function getEmployeesReportingTo(){
+    return "http://localhost:4000/api/org/reportingto"
+}
+
 export {
     getRoles,
     getDepartment,
@@ -38,5 +42,6 @@ export {
     getCompleteUsersData,
     authenticationEndpoint,
     addUserEndpoint,
-    sameDesignationEndpoint
+    sameDesignationEndpoint,
+    getEmployeesReportingTo
 }

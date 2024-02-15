@@ -5,7 +5,8 @@ import {
   getHierarchy,
   getRoles,
   getSameDesignation,
-  getSenior
+  getSenior,
+  getPeopleReportingToCurrentUser
 } from "../controllers/OrgController.js";
 
 const orgRouter = express.Router();
@@ -38,5 +39,8 @@ orgRouter.get("/senior", getSenior);
 // works with login
 //works with
 orgRouter.post("/samedesignation", getSameDesignation);
+
+
+orgRouter.post("/reportingto", getPeopleReportingToCurrentUser)
 
 export default orgRouter;
