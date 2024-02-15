@@ -38,7 +38,9 @@ function App() {
   }, [])
 
   return (
-    <div className="App container-fluid" >
+    <div className="App container-fluid" style={{
+      backgroundColor:'#F7F0EA;'
+    }}>
       <BrowserRouter>
 
         <ToastContainer

@@ -154,7 +154,7 @@ export default function Register() {
             <div className="col-12 col-md-9 col-lg-7 col-xl-6 p-5">
               <div className="card register-details" style={{ borderRadius: '15px' }}>
                 <div className="card-body p-5 ">
-                  <h5 className="mb-4 text-center display-3 fw-bold" style={{ fontFamily: 'Times New Roman', fontSize: '3rem', maxWidth: '100%', color: '#622369' }}>Register</h5>
+                  <h5 className="mb-4 text-center display-3 fw-bold" style={{ fontFamily: 'Times New Roman', fontSize: '3rem', maxWidth: '100%', color: '#070F2B' }}>Register</h5>
                   <form>
 
                     <div className="form-outline mb-4">

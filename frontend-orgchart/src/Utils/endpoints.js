@@ -1,30 +1,30 @@
 function getRoles(domain){
-    return `http://localhost:4000/api/getroles?DOMAIN=${domain}`
+    return `http://localhost:4000/api/org/roles?DOMAIN=${domain}`
 }
 
 function getDepartment(domain){
-    return `http://localhost:4000/api/getdept?DOMAIN=${domain}`
+    return `http://localhost:4000/api/org/dept?DOMAIN=${domain}`
 }
 
 
 function getSeniorNames(designation, department){
-    return `http://localhost:4000/api/listseniornames?ROLE=${designation}&DEPARTMENT=${department}`
+    return `http://localhost:4000/api/org/senior?ROLE=${designation}&DEPARTMENT=${department}`
 }
 
 function getOrganizationChart(){
-    return 'http://localhost:4000/api/getorgchart'
+    return 'http://localhost:4000/api/org/orgchart'
 }
 
 function getCompleteUsersData(){
-    return "http://localhost:4000/api/getallusers"
+    return "http://localhost:4000/api/org/allusers"
 }
 
 function authenticationEndpoint(){
-    return 'http://localhost:4000/api/login'
+    return 'http://localhost:4000/api/auth/login'
 }
 
 function addUserEndpoint(){
-    return "http://localhost:4000/api/adduser"
+    return "http://localhost:4000/api/user/register"
 }
 
 export {

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import hierarchyImage from '../Static/Hierarchy_Vector.png'
+import hierarchyImage from '../Static/Hierarchy.png'
 import { authenticationEndpoint } from '../Utils/endpoints';
 
 const Login = () => {
@@ -76,9 +76,9 @@ const Login = () => {
               <div className="row g-0 "  >
                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                    <h4 className="mb-4 text-center display-3 fw-bold" style={{ fontFamily: 'Times New Roman', fontSize: '3rem', maxWidth: '100%' }}>Organization Chart</h4>
+                    <h4 className="mb-4 text-center display-3 fw-bold" style={{ fontFamily:"-moz-initial" , fontSize: '3rem', maxWidth: '100%' }}>Organization Chart</h4>
 
-                    <img src={hierarchyImage} alt="Hierarchy_Vector" className="img-fluid" />
+                    <img src={hierarchyImage} id="banner_image" alt="Hierarchy_Vector" className="img-fluid" />
                   </div>
                 </div>
                 <div className="col-lg-6 login-body">

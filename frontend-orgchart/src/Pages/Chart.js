@@ -112,15 +112,15 @@ function Chart({ chartdata }) {
   }
 
   return (
-    <div className='chart-body'>
+    <div className='chart-body' style={{ paddingBottom:'20px' }}>
 
       <div className="container-fluid chart-nav">
-        <div className="row" >
+        <div className="row"  style={{ padding:'10px', marginBottom:'20px' }}>
           <div className='col-md-3 col-sm-12 py-2'>
             <i className="fa-solid fa-sitemap" style={{ fontSize: '2.5rem' }}></i>
           </div>
 
-          <div className=' col-md-6 py-2 col-sm-12'>
+          <div className='col-md-6 py-2 col-sm-12'>
             <Dropdown value={selectedUser} onChange={(e) => setSelectedUser(e.value)} options={chartdata} optionLabel="name" placeholder="Select a user"
               filter valueTemplate={searchTemplate} itemTemplate={OptionTemplate} className="w-full md:w-14rem" style={{ width: "100%" }} />
           </div>
