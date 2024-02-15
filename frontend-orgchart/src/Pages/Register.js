@@ -5,6 +5,8 @@ import 'primereact/resources/primereact.min.css';
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
+import { addUserEndpoint, getDepartment, getRoles, getSeniorNames } from "../Utils/endpoints";
+
 export default function Register() {
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedTypeRole, setSelectedTypeRole] = useState("")
@@ -47,7 +49,7 @@ export default function Register() {
         setselectedDept("");
         setreportto("");
 
-        const response = await axios.get(`http://localhost:4000/api/getroles?DOMAIN=${type}`);
+        const response = await axios.get(getRoles(type)); // endpoint 1
         console.log(response.data.data);
         setroleDrop(response.data.data);
         console.log('Post request successful:', response.data);
@@ -68,7 +70,7 @@ export default function Register() {
       try {
         setselectedDept("");
         setreportto("");
-        const response = await axios.get(`http://localhost:4000/api/getdept?DOMAIN=${type}`);
+        const response = await axios.get(getDepartment(type)); // endpoint 2
 
         console.log('response for department', response.data.data)
 
@@ -93,7 +95,7 @@ export default function Register() {
     const fetchData = async () => {
       try {
         setreportto("");
-        const response = await axios.get(`http://localhost:4000/api/listseniornames?ROLE=${roleType}&DEPARTMENT=${departmentType}`);
+        const response = await axios.get(getSeniorNames(roleType,departmentType)); // endpoint 3
         console.log('got response of senior emails', response.data.data);
         setreporttoDrop(response.data.data);
         console.log('Post request successful:', response.data.data);
@@ -111,7 +113,7 @@ export default function Register() {
 
   const submitFormBackend = async (formData) => {
     try {
-      const response = await axios.post("http://localhost:4000/api/adduser", formData)
+      const response = await axios.post(addUserEndpoint(), formData)
 
       console.log('response for creating : ', response.data)
       toast.success(`User Created`)

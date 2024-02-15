@@ -20,8 +20,8 @@ function CardComponent({item,index}) {
           </div>
           <div className=' col-lg-9 col-md-9  text'>
             <span className='iname'>{capitalizeFirstLetter(item.name)} </span>
-            <span className='irole'>{item.role} </span>
-            <span className='idpt'>{item.department} </span>
+            <span className='irole'>{item.role?.replace(/_/g, ' ')} </span>
+            <span className='idpt'>{item.department?.replace(/_/g, ' ')} </span>
           </div>
         </div>
       </div>

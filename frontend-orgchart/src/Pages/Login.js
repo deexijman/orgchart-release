@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import hierarchyImage from './static/Hierarchy_Vector.png'
+import hierarchyImage from '../Static/Hierarchy_Vector.png'
+import { authenticationEndpoint } from '../Utils/endpoints';
 
 const Login = () => {
   const [employeeName, setEmployeeName] = useState('');
@@ -18,7 +19,7 @@ const Login = () => {
 
     try {
 
-      const response = await axios.post('http://localhost:4000/api/login', {
+      const response = await axios.post(authenticationEndpoint(), {
         NAME: employeeName,
         EMAIL: email,
         ROLE: userType,

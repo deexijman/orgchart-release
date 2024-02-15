@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import CardComponent from './components/CardComponent';
+import CardComponent from '../components/CardComponent';
+import { getOrganizationChart } from '../Utils/endpoints';
 
 function Chart({ chartdata }) {
 
@@ -17,7 +18,7 @@ function Chart({ chartdata }) {
 
   const callChartData = async ({ email, reportsTo }) => {
     try {
-      const response = await axios.post('http://localhost:4000/api/getorgchart',
+      const response = await axios.post(getOrganizationChart(),
         {
           email: email,
           reportsTo: reportsTo
@@ -135,24 +136,7 @@ function Chart({ chartdata }) {
 
 
             <CardComponent key={index} index={index} item={item} />
-            // <div>
-            //   {index !== 0 && <div id='line'></div>}
-            //   <div key={index} className="node">
-            //     <div className="details row" >
-            //       <div className='col-lg-3 col-md-3' style={{ display: 'flex', alignItems: "center" }}>
-            //         <Avatar style={{
-            //           height: '2.8rem', width: '2.8rem', borderRadius: "3rem", marginLeft: '36%', backgroundColor: "white  ",
-            //           color: "#9d79a1"
-            //         }}>{item.name.charAt(0).toUpperCase() + item.name.charAt(1).toUpperCase()}</Avatar>
-            //       </div>
-            //       <div className=' col-lg-9 col-md-9  text'>
-            //         <span className='iname'>{capitalizeFirstLetter(item.name)} </span>
-            //         <span className='irole'>{item.role} </span>
-            //         <span className='idpt'>{item.department} </span>
-            //       </div>
-            //     </div>
-            //   </div>
-            //</div>
+
           ))}
         </div>
       </div>

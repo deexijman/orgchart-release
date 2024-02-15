@@ -1,12 +1,16 @@
-import './styles/App.css';
-import Login from './Login';
-import { BrowserRouter, Route, Router, Routes, Switch } from 'react-router-dom';
-import Register from './Register';
+import './Styles/App.css';
+import Login from './Pages/Login';
+import Chart from './Pages/Chart';
+import Register from './Pages/Register';
+
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import axios from 'axios';
-import OrganizationStructure from './Chart';
+
 import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getCompleteUsersData } from './Utils/endpoints';
 
 function App() {
 
@@ -16,7 +20,7 @@ function App() {
 
     try {
 
-      const response = await axios.get("http://localhost:4000/api/getallusers")
+      const response = await axios.get(getCompleteUsersData())
       setAllUsers(response.data.data)
 
     } catch (error) {
@@ -45,7 +49,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/chart" element={<OrganizationStructure chartdata={allUsers} />} />
+          <Route path="/chart" element={<Chart chartdata={allUsers} />} />
           <Route path='/register' element={<Register />} />
         </Routes>
 
