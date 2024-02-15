@@ -7,14 +7,15 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CardComponent from '../components/CardComponent';
-import { getOrganizationChart } from '../Utils/endpoints';
+import { getOrganizationChart, sameDesignationEndpoint } from '../Utils/Endpoints';
+import EmployeeCard from '../components/EmployeeCard'
 
 function Chart({ chartdata }) {
 
   const navigate = useNavigate()
   const [userData, setUserData] = useState([])
   const [selectedUser, setSelectedUser] = useState(null);
-  const [worksWith, setWorksWith] = useState([])
+  const [sameDesignation, setSameDesignation] = useState([])
 
   const callChartData = async ({ email, reportsTo }) => {
     try {
@@ -33,6 +34,26 @@ function Chart({ chartdata }) {
 
   }
 
+  const callSameDesignationData = async ({ reportsTo }) => {
+
+    try {
+
+      console.log("Frontend : ",reportsTo)
+
+      const response = await axios.post(sameDesignationEndpoint(),
+      {
+        reportsTo: reportsTo
+      })
+
+      setSameDesignation(response.data.data)
+
+    }
+    catch (error) {
+      console.log("Error response", error.response)
+    }
+
+  }
+
   useEffect(() => {
 
     // to handle unwanted login
@@ -40,8 +61,8 @@ function Chart({ chartdata }) {
       console.log('Just handle unwanted login')
       navigate('/')
       toast.error('Kindly Login To View Chart')
-    } 
-    else{
+    }
+    else {
 
       // to handle login properly
       console.log("Get details from storage", {
@@ -55,7 +76,7 @@ function Chart({ chartdata }) {
         reportsTo: localStorage.getItem('reportsTo')
       })
 
-    }   
+    }
 
   }, [])
 
@@ -64,14 +85,15 @@ function Chart({ chartdata }) {
     if (localStorage.getItem('email') !== null) { // to handle server crash
 
       if (selectedUser !== undefined && selectedUser !== null) {
-        console.log("all come", selectedUser)
+
         callChartData({
           email: selectedUser.email,
           reportsTo: selectedUser.reportsTo
         })
-        toast.success("Fetched User")
-      }else{
-    
+        //toast.success("Fetched User")
+
+      } else {
+
         callChartData({
           email: localStorage.getItem('email'),
           reportsTo: localStorage.getItem('reportsTo')
@@ -81,6 +103,43 @@ function Chart({ chartdata }) {
 
 
     }
+
+  }, [selectedUser])
+
+
+  // update the same design employee list
+  useEffect(() => {
+
+    // if (selectedUser !== undefined && selectedUser !== null) {
+
+    //   console.log("Selected User", selectedUser)
+    //   callSameDesignationData({
+    //     reportsTo: selectedUser.reportsTo
+    //   })
+
+    // }
+
+    if (localStorage.getItem('reportsTo') !== null) { // to handle server crash
+
+      if (selectedUser !== undefined && selectedUser !== null) {
+
+        callSameDesignationData({
+          email: selectedUser.email,
+          reportsTo: selectedUser.reportsTo
+        })
+        //toast.success("Fetched User")
+
+      } else {
+
+        callSameDesignationData({
+          reportsTo: localStorage.getItem('reportsTo')
+        })
+
+      }
+
+
+    }
+
 
   }, [selectedUser])
 
@@ -112,10 +171,10 @@ function Chart({ chartdata }) {
   }
 
   return (
-    <div className='chart-body' style={{ paddingBottom:'20px' }}>
+    <div className='chart-body' style={{ paddingBottom: '20px' }}>
 
       <div className="container-fluid chart-nav">
-        <div className="row"  style={{ padding:'10px', marginBottom:'20px' }}>
+        <div className="row" style={{ padding: '10px', marginBottom: '20px' }}>
           <div className='col-md-3 col-sm-12 py-2'>
             <i className="fa-solid fa-sitemap" style={{ fontSize: '2.5rem' }}></i>
           </div>
@@ -134,11 +193,28 @@ function Chart({ chartdata }) {
         <div className="org-chart" >
           {userData.map((item, index) => (
 
-
             <CardComponent key={index} index={index} item={item} />
 
           ))}
         </div>
+
+        <div class="container" style={{
+          border: "3px solid #070F2B",
+          padding: '10px',
+          minWidth: '100%',
+          marginTop: '40px'
+        }}>
+          <div class="row">
+
+            {sameDesignation.map((item, index) => (
+              <div key={index} class="col-lg-4 col-md-6 col-xs-12">
+                <EmployeeCard item={item} />
+              </div>
+            ))}
+
+          </div>
+        </div>
+
       </div>
     </div>
   );

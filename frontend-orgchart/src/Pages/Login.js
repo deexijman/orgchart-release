@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import hierarchyImage from '../Static/Hierarchy.png'
-import { authenticationEndpoint } from '../Utils/endpoints';
+import { authenticationEndpoint } from '../Utils/Endpoints';
 
 const Login = () => {
   const [employeeName, setEmployeeName] = useState('');
@@ -164,9 +164,7 @@ const Login = () => {
                         >
                           Log in
                         </button>
-
                       </div>
-
 
                     </form>
                   </div>

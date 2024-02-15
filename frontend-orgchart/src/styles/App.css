@@ -101,7 +101,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #9d79a1;
+  border: 3px solid #070F2B;
+  padding: 10px;
+  margin: 10px;
+  border-style: solid;
+  border-width: 3px;
+  transition: transform 0.3s ease; /* Add transition for smooth scaling */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow effect */
+}
+
+#employee_node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #070F2B;
   padding: 10px;
   margin: 10px;
   border-style: solid;
@@ -113,7 +126,7 @@
 .node:hover {
   transform: scale(1.10); /* Scale the card on hover */
   cursor: pointer;
-  border: 1px solid white;
+  border: 3px solid white;
   background-color: #070F2B; 
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a larger box shadow on hover */
@@ -145,7 +158,7 @@
 #line {
   width: 2px;
   height: 50px;
-  background-color: #9d79a1;
+  background-color: #070F2B;
   margin-left: 51%;
 
 }

@@ -6,7 +6,6 @@ function getDepartment(domain){
     return `http://localhost:4000/api/org/dept?DOMAIN=${domain}`
 }
 
-
 function getSeniorNames(designation, department){
     return `http://localhost:4000/api/org/senior?ROLE=${designation}&DEPARTMENT=${department}`
 }
@@ -27,6 +26,10 @@ function addUserEndpoint(){
     return "http://localhost:4000/api/user/register"
 }
 
+function sameDesignationEndpoint(){
+    return "http://localhost:4000/api/org/samedesignation"
+}
+
 export {
     getRoles,
     getDepartment,
@@ -34,5 +37,6 @@ export {
     getOrganizationChart,
     getCompleteUsersData,
     authenticationEndpoint,
-    addUserEndpoint
+    addUserEndpoint,
+    sameDesignationEndpoint
 }

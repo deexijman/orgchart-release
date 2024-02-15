@@ -159,10 +159,12 @@ export const getSenior = async (req, res) => {
   }
 };
 
-export const getWorksWith = async (req, res) => {
-  const { reportsTo } = req.body;
+export const getSameDesignation = async (req, res) => {
+  const reportsTo = req.body.reportsTo;
 
-  console.log("1", reportsTo);
+  console.log('body log',req.body)
+
+  console.log("Same design check", reportsTo)
 
   try {
     const employees = await User.find({ reportsTo: reportsTo });

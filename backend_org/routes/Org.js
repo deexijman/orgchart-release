@@ -4,8 +4,8 @@ import {
   getDept,
   getHierarchy,
   getRoles,
-  getSenior,
-  getWorksWith,
+  getSameDesignation,
+  getSenior
 } from "../controllers/OrgController.js";
 
 const orgRouter = express.Router();
@@ -37,6 +37,6 @@ orgRouter.get("/senior", getSenior);
 //returns all the people who works along the provided user
 // works with login
 //works with
-orgRouter.get("/workswith", getWorksWith);
+orgRouter.post("/samedesignation", getSameDesignation);
 
 export default orgRouter;
