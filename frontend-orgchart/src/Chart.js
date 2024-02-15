@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faSitemap } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function OrganizationStructure({ chartdata }) {
 
@@ -35,13 +37,12 @@ function OrganizationStructure({ chartdata }) {
   useEffect(() => {
 
     // to handle unwanted login
-    if (localStorage.getItem('email') === null) {
+    if (localStorage.getItem('email') === null && localStorage.getItem('reportsTo') === null) {
       console.log('Just handle unwanted login')
       navigate('/')
+      toast.error('Kindly Login To View Chart')
     } 
     else{
-
-      console.log('reached here and went 2')
 
       // to handle login properly
       console.log("Get details from storage", {
@@ -55,22 +56,33 @@ function OrganizationStructure({ chartdata }) {
         reportsTo: localStorage.getItem('reportsTo')
       })
 
-    }
-
-    
+    }   
 
   }, [])
 
   useEffect(() => {
 
+    if (localStorage.getItem('email') !== null) { // to handle server crash
 
-    if (selectedUser !== null) {
-      console.log("all come", selectedUser)
-      callChartData({
-        email: selectedUser.email,
-        reportsTo: selectedUser.reportsTo
-      })
+      if (selectedUser !== undefined && selectedUser !== null) {
+        console.log("all come", selectedUser)
+        callChartData({
+          email: selectedUser.email,
+          reportsTo: selectedUser.reportsTo
+        })
+        toast.success("Fetched User")
+      }else{
+    
+        callChartData({
+          email: localStorage.getItem('email'),
+          reportsTo: localStorage.getItem('reportsTo')
+        })
+
+      }
+
+
     }
+
   }, [selectedUser])
 
   function capitalizeFirstLetter(string) {
@@ -102,6 +114,7 @@ function OrganizationStructure({ chartdata }) {
     console.log(cookie)
     localStorage.clear()
     navigate('/')
+    toast.success("Logged out successfull")
   }
 
   return (

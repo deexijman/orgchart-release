@@ -109,7 +109,7 @@
     background-color: #F7F0EA;
     margin: 0;
     padding: 0px;
-    /* height: 100vh; */
+    min-height: 100vh;
   }
   .chart-nav{
     background-color: #622369;
