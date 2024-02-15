@@ -1,0 +1,32 @@
+import React from 'react'
+import { Avatar } from '@mui/material'
+
+function CardComponent({item,index}) {
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  return (
+    <div>
+      {index !== 0 && <div id='line'></div>}
+      <div key={index} className="node">
+        <div className="details row" >
+          <div className='col-lg-3 col-md-3' style={{ display: 'flex', alignItems: "center" }}>
+            <Avatar style={{
+              height: '2.8rem', width: '2.8rem', borderRadius: "3rem", marginLeft: '36%', backgroundColor: "white  ",
+              color: "#9d79a1"
+            }}>{item.name.charAt(0).toUpperCase() + item.name.charAt(1).toUpperCase()}</Avatar>
+          </div>
+          <div className=' col-lg-9 col-md-9  text'>
+            <span className='iname'>{capitalizeFirstLetter(item.name)} </span>
+            <span className='irole'>{item.role} </span>
+            <span className='idpt'>{item.department} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default CardComponent

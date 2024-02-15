@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'primereact/dropdown';
-import { Avatar } from '@mui/material'
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import { faSitemap } from '@fortawesome/free-solid-svg-icons';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CardComponent from './components/CardComponent';
 
-function OrganizationStructure({ chartdata }) {
+function Chart({ chartdata }) {
 
   const navigate = useNavigate()
   const [userData, setUserData] = useState([])
@@ -85,11 +83,6 @@ function OrganizationStructure({ chartdata }) {
 
   }, [selectedUser])
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-
   const searchTemplate = (option, props) => {
     if (option) {
       return (
@@ -140,24 +133,26 @@ function OrganizationStructure({ chartdata }) {
         <div className="org-chart" >
           {userData.map((item, index) => (
 
-            <div>
-              {index !== 0 && <div id='line'></div>}
-              <div key={index} className="node">
-                <div className="details row" >
-                  <div className='col-lg-3 col-md-3' style={{ display: 'flex', alignItems: "center" }}>
-                    <Avatar style={{
-                      height: '2.8rem', width: '2.8rem', borderRadius: "3rem", marginLeft: '36%', backgroundColor: "white  ",
-                      color: "#9d79a1"
-                    }}>{item.name.charAt(0).toUpperCase() + item.name.charAt(1).toUpperCase()}</Avatar>
-                  </div>
-                  <div className=' col-lg-9 col-md-9  text'>
-                    <span className='iname'>{capitalizeFirstLetter(item.name)} </span>
-                    <span className='irole'>{item.role} </span>
-                    <span className='idpt'>{item.department} </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <CardComponent key={index} index={index} item={item} />
+            // <div>
+            //   {index !== 0 && <div id='line'></div>}
+            //   <div key={index} className="node">
+            //     <div className="details row" >
+            //       <div className='col-lg-3 col-md-3' style={{ display: 'flex', alignItems: "center" }}>
+            //         <Avatar style={{
+            //           height: '2.8rem', width: '2.8rem', borderRadius: "3rem", marginLeft: '36%', backgroundColor: "white  ",
+            //           color: "#9d79a1"
+            //         }}>{item.name.charAt(0).toUpperCase() + item.name.charAt(1).toUpperCase()}</Avatar>
+            //       </div>
+            //       <div className=' col-lg-9 col-md-9  text'>
+            //         <span className='iname'>{capitalizeFirstLetter(item.name)} </span>
+            //         <span className='irole'>{item.role} </span>
+            //         <span className='idpt'>{item.department} </span>
+            //       </div>
+            //     </div>
+            //   </div>
+            //</div>
           ))}
         </div>
       </div>
@@ -165,4 +160,4 @@ function OrganizationStructure({ chartdata }) {
   );
 }
 
-export default OrganizationStructure;
+export default Chart;

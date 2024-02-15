@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import hierarchyImage from './Hierarchy_Vector_Bg.png'
+import hierarchyImage from './static/Hierarchy_Vector.png'
 
 const Login = () => {
   const [employeeName, setEmployeeName] = useState('');
