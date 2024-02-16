@@ -9,6 +9,7 @@
 
 }
 
+
 /* Define a floating animation */
 @keyframes float {
   0% {
@@ -110,6 +111,39 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow effect */
 }
 
+.node:hover {
+  transform: scale(1.10); /* Scale the card on hover */
+  cursor: pointer;
+  border: 3px solid white;
+  background-color: #070F2B; 
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a larger box shadow on hover */
+}
+
+.selected_node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid white;
+  background-color: #070F2B;
+  padding: 10px;
+  margin: 10px;
+  border-style: solid;
+  border-width: 3px;
+  transition: transform 0.3s ease; /* Add transition for smooth scaling */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow effect */
+}
+
+.selected_node:hover {
+  transform: scale(1.10); /* Scale the card on hover */
+  cursor: pointer;
+  border: 3px solid #070F2B;
+  background-color: white; 
+  color: #070F2B;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a larger box shadow on hover */
+}
+
+
 #employee_node {
   display: flex;
   flex-direction: column;
@@ -123,14 +157,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow effect */
 }
 
-.node:hover {
-  transform: scale(1.10); /* Scale the card on hover */
-  cursor: pointer;
-  border: 3px solid white;
-  background-color: #070F2B; 
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add a larger box shadow on hover */
-}
 
 .details {
   /* display: grid; */

@@ -17,6 +17,7 @@ function Chart({ chartdata }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const [sameDesignation, setSameDesignation] = useState([])
   const [reportingTo, setReportingTo] = useState([])
+  const [selectedUserEmail, setSelectedUserEmail] = useState('')
 
   const callReportingToData = async ({ email }) => {
     try {
@@ -99,15 +100,18 @@ function Chart({ chartdata }) {
 
   useEffect(() => {
 
+
     if (localStorage.getItem('email') !== null) { // to handle server crash
 
       if (selectedUser !== undefined && selectedUser !== null) {
+
+        setSelectedUserEmail(selectedUser.email)
 
         callChartData({
           email: selectedUser.email,
           reportsTo: selectedUser.reportsTo
         })
-        //toast.success("Fetched User")
+        // toast.success("Fetched User")
 
       } else {
 
@@ -161,7 +165,7 @@ function Chart({ chartdata }) {
   }, [selectedUser])
 
   // reporting to
-  useEffect(()=>{
+  useEffect(() => {
 
     // reporting To
     if (localStorage.getItem('email') !== null) { // to handle server crash
@@ -184,7 +188,7 @@ function Chart({ chartdata }) {
 
     }
 
-  },[selectedUser])
+  }, [selectedUser])
 
   const searchTemplate = (option, props) => {
     if (option) {
@@ -236,46 +240,80 @@ function Chart({ chartdata }) {
         <div className="org-chart" >
           {userData.map((item, index) => (
 
-            <CardComponent key={index} index={index} item={item} />
+            <CardComponent key={index} index={index} item={item} selectedUserEmail={selectedUserEmail}  />
 
           ))}
         </div>
 
-        <div class="container" style={{
-          border: "3px solid #070F2B",
-          padding: '10px',
-          minWidth: '100%',
-          marginTop: '40px'
-        }}>
-          <div class="row">
+        <div id="samedesig-container">
+          {
+            sameDesignation.length > 0
+            &&
+            <div class="container" style={{
+              border: "3px solid #070F2B",
+              padding: '10px',
+              minWidth: '100%',
+              marginTop: '40px'
+            }}>
+              <div class="row justify-content-center">
 
-            {sameDesignation.map((item, index) => (
-              <div key={index} class="col-lg-4 col-md-6 col-xs-12">
-                <EmployeeCard item={item} />
+                <div class="col-12">
+                  <p
+                    style={{
+                      fontFamily: 'Ubuntu',
+                      fontWeight: 500
+                    }}
+                  >Folks in your rank ({sameDesignation.length})</p>
+                </div>
+
+                {sameDesignation.map((item, index) => (
+                  <div key={index} class="col-lg-4 col-md-6 col-xs-12">
+                    <EmployeeCard item={item} />
+                  </div>
+                ))}
+
               </div>
-            ))}
+            </div>
+          }
 
-          </div>
         </div>
 
-        <div class="container" style={{
-          border: "3px solid #070F2B",
-          padding: '10px',
-          minWidth: '100%',
-          marginTop: '40px'
-        }}>
+        <div id="reportingTo-Container">
 
-          
-          <div class="row">
+          {
+            reportingTo.length > 0 &&
+            <div class="container" style={{
+              border: "3px solid #070F2B",
+              padding: '10px',
+              minWidth: '100%',
+              marginTop: '40px',
+            }}>
 
-            { reportingTo.map((item, index) => (
-              <div key={index} class="col-lg-4 col-md-6 col-xs-12">
-                <EmployeeCard item={item} />
+
+              <div class="row justify-content-center">
+
+                <div class="col-12">
+                  <p
+                    style={{
+                      fontFamily: 'Ubuntu',
+                      fontWeight: 500
+                    }}
+                  >Reporting to you ({reportingTo.length})</p>
+                </div>
+
+                {reportingTo.map((item, index) => (
+                  <div key={index} class="col-lg-4 col-md-6 col-xs-12">
+                    <EmployeeCard item={item} />
+                  </div>
+                ))}
+
               </div>
-            ))}
+            </div>
+          }
 
-          </div>
         </div>
+
+
 
 
       </div>

@@ -76,7 +76,7 @@ const Login = () => {
               <div className="row g-0 "  >
                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                    <h4 className="mb-4 text-center display-3 fw-bold" style={{ fontFamily:"-moz-initial" , fontFamily: "Titillium Web", fontWeight: 200, maxWidth: '100%' }}>Organization Chart</h4>
+                    <h4 className="mb-4 text-center display-3 fw-bold" style={{ fontFamily: "-moz-initial", fontFamily: "Titillium Web", fontWeight: 200, maxWidth: '100%' }}>Organization Chart</h4>
 
                     <img src={hierarchyImage} id="banner_image" alt="Hierarchy_Vector" className="img-fluid" />
                   </div>
@@ -94,7 +94,7 @@ const Login = () => {
                           id="form2Example11"
                           className="form-control"
                           placeholder="Employee Name"
-                          style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}
+                          style={{ fontSize: '18px', fontFamily: 'Ubuntu' }}
                           onChange={(event) => {
                             setEmployeeName(event.target.value);
                           }}
@@ -106,7 +106,7 @@ const Login = () => {
                           id="form2Example11"
                           className="form-control"
                           placeholder="Email Address"
-                          style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}
+                          style={{ fontSize: '18px', fontFamily: 'Ubuntu' }}
                           onChange={(event) => {
                             setEmail(event.target.value);
                           }}
@@ -123,7 +123,7 @@ const Login = () => {
                             checked={userType === 'user'}
                             onChange={(e) => { setUserType(e.target.value) }}
                           />
-                          <label className="form-check-label" htmlFor="radioUser" style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}>
+                          <label className="form-check-label" htmlFor="radioUser" style={{ fontSize: '18px', fontFamily: 'Ubuntu' }}>
                             User
                           </label>
                         </div>
@@ -138,7 +138,7 @@ const Login = () => {
                             checked={userType === 'admin'}
                             onChange={(e) => { setUserType(e.target.value) }}
                           />
-                          <label className="form-check-label" htmlFor="radioAdmin" style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}>
+                          <label className="form-check-label" htmlFor="radioAdmin" style={{ fontSize: '18px', fontFamily: 'Ubuntu' }}>
                             Admin
                           </label>
                         </div>
@@ -149,7 +149,7 @@ const Login = () => {
                           id="form2Example22"
                           className="form-control"
                           placeholder="Password"
-                          style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}
+                          style={{ fontSize: '18px', fontFamily: 'Ubuntu' }}
                           onChange={(event) => {
                             setPassword(event.target.value);
                           }}
@@ -161,6 +161,10 @@ const Login = () => {
                           className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
                           type="button"
                           onClick={handleSubmit}
+                          style={{
+                            fontFamily: 'Ubuntu',
+                            fontSize: '18px'
+                          }}
                         >
                           Log in
                         </button>
