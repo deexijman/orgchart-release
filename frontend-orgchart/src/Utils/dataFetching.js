@@ -51,7 +51,9 @@ const callSameDesignationData = async ({ reportsTo, setSameDesignation }) => {
 }
 
 export {
+
     callChartData,
     callSameDesignationData,
     callReportingToData
+    
 }
