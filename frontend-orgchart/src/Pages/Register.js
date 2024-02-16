@@ -37,9 +37,8 @@ export default function Register() {
     // to handle unwanted login
     if (localStorage.getItem('email') === null) {
       navigate('/')
-    } else {
-      console.log('went inside')
     }
+    
   }, [])
 
   useEffect(() => {
@@ -50,9 +49,7 @@ export default function Register() {
         setreportto("");
 
         const response = await axios.get(getRoles(type)); // endpoint 1
-        console.log(response.data.data);
         setroleDrop(response.data.data);
-        console.log('Post request successful:', response.data);
 
       } catch (error) {
         console.error('Error in post request:', error);
@@ -71,17 +68,9 @@ export default function Register() {
         setselectedDept("");
         setreportto("");
         const response = await axios.get(getDepartment(type)); // endpoint 2
-
-        console.log('response for department', response.data.data)
-
-
         setdepartmentDrop(response.data.data);
-        console.log('Post request successful:', response.data.data);
-
       } catch (error) {
-        console.error('Error in post request:', error);
         toast.error("Error while registering")
-
       }
     };
 
@@ -96,13 +85,9 @@ export default function Register() {
       try {
         setreportto("");
         const response = await axios.get(getSeniorNames(roleType,departmentType)); // endpoint 3
-        console.log('got response of senior emails', response.data.data);
         setreporttoDrop(response.data.data);
-        console.log('Post request successful:', response.data.data);
-
       } catch (error) {
         console.error('Error in post request:', error);
-
       }
     };
 
@@ -115,10 +100,8 @@ export default function Register() {
     try {
       const response = await axios.post(addUserEndpoint(), formData)
 
-      console.log('response for creating : ', response.data)
       toast.success(`User Created`)
 
-      console.log('data for submission ', response.data)
       setFormData({ name: '', email: '', password: '', domain: '', role: '', department: '', reportsTo: '' })
       setSelectedTypeRole('')
       setSelectedRole('')
@@ -129,14 +112,12 @@ export default function Register() {
       setSelectedTypeRole('')
       setSelectedRole('')
 
-      console.log('Error server', error?.request?.responseText)
       toast.error(`Registration Error : ${error?.request?.responseText}`)
     }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Submitted Data:', formData);
 
     submitFormBackend(formData)
   };
@@ -154,24 +135,24 @@ export default function Register() {
             <div className="col-12 col-md-9 col-lg-7 col-xl-6 p-5">
               <div className="card register-details" style={{ borderRadius: '15px' }}>
                 <div className="card-body p-5 ">
-                  <h5 className="mb-4 text-center display-3 fw-bold" style={{ fontFamily: 'Times New Roman', fontSize: '3rem', maxWidth: '100%', color: '#070F2B' }}>Register</h5>
+                  <h5 className="mb-4 text-center display-3 fw-bold" style={{ fontSize: '3rem', maxWidth: '100%', color: '#070F2B' }}>Register</h5>
                   <form>
 
                     <div className="form-outline mb-4">
                       <input type="text" name="name" placeholder="Name" autoComplete="off"
-                        style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}
+                        style={{ fontSize: '18px' }}
                         value={formData.name} id="form3Example1cg" className="form-control form-control-lg" onChange={handleInputChange} />
                     </div>
 
                     <div className="form-outline mb-4">
                       <input type="email" name="email" placeholder="Email" autoComplete="off"
-                        style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}
+                        style={{ fontSize: '18px' }}
                         value={formData.email} id="form3Example3cg" className="form-control form-control-lg" onChange={handleInputChange} />
                     </div>
 
                     <div className="form-outline mb-4">
                       <input type="password" name="password" placeholder="Password" autoComplete="false"
-                        style={{ fontSize: '18px', fontFamily: 'Times New Roman' }}
+                        style={{ fontSize: '18px' }}
                         value={formData.password} id="form3Example4cg" className="form-control form-control-lg" onChange={handleInputChange} />
                     </div>
 
@@ -192,8 +173,7 @@ export default function Register() {
                           options={["PR", "TECH"]}
 
                           placeholder="Select Domain"
-                          className="w-full md:w-14rem times-new-roman-font"
-                          style={{ fontFamily: 'Times New Roman' }} 
+                          className="w-full md:w-14rem times-new-roman-font" 
                         />
                       </div>
                     </div>

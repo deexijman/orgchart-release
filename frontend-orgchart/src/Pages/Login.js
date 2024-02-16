@@ -28,11 +28,9 @@ const Login = () => {
 
       const { name, email: resEmail, role, reportsTo, accessRole } = response.data
 
-      console.log("object obtained", { name, resEmail, role, reportsTo, accessRole })
 
       if (response.status === 200 && accessRole === 'ADMIN') {
 
-        console.log("response accessRole : ", accessRole)
 
         localStorage.clear();
         localStorage.setItem("email", resEmail);
@@ -42,7 +40,6 @@ const Login = () => {
 
       } else if (response.status === 200 && accessRole === 'USER') {
 
-        console.log("response accessRole : ", accessRole)
 
         localStorage.clear();
         localStorage.setItem("email", resEmail);

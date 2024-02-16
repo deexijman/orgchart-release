@@ -63,21 +63,17 @@ app.post("/api/getorgchart", async (req, res) => {
             reportsTo: req.body.reportsTo === 'null' ? null : req.body.reportsTo,
         };
 
-        console.log(bodyParameters, "anush")
-
-        console.log('get body params', bodyParameters)
         //check if the credentials sent are actually valid - starts
         try {
             const user = await User.findOne({ email: req.body.email });
             user === null && res.status(404).json({ message: "User doesnt Exist" });
         }
         catch (e) {
-            console.log("errorrre")
+            console.log("error response")
         }
 
 
         //check if the credentials sent are actually valid - end
-
         const hierarchyArr = [];
         let nextReportsTo = bodyParameters.reportsTo;
         let currentEmailHolder = bodyParameters.email;
@@ -109,7 +105,6 @@ app.post("/api/getorgchart", async (req, res) => {
                 break;
             }
 
-            console.log("show next reports to : ", nextReportsTo);
         } while (nextReportsTo !== null);
 
         res.status(200).json(hierarchyArr);
@@ -247,16 +242,9 @@ app.post("/api/login", async (req, res) => {
         const EMAIL = req.body.EMAIL;
         const PASSWORD = req.body.PASSWORD;
 
-        console.log('passed to the logger', {
-            ROLE,
-            EMAIL,
-            PASSWORD,
-        })
-
         if (ROLE === "USER") {
             //FIND IF USER IS THERE
             const user = await User.findOne({ email: EMAIL, password: PASSWORD });
-            console.log('logged user ', user)
 
             if (user === null) {
                 // If user is not found, send an error response to the client
@@ -336,19 +324,14 @@ app.get('/api/org/workswith', async (req, res) => {
 
     const { reportsTo } = req.body
 
-    console.log('1',reportsTo)
-
     try {
         const employees = await User.find({ reportsTo: reportsTo })
-        console.log('1',employees)
         
         if (employees === null) {
             res.status(200).json({
                 data: []
             })
         }
-
-        console.log(employees)
 
         res.status(200).json({
             data: employees

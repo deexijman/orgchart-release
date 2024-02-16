@@ -22,15 +22,12 @@ export const getHierarchy = async (req, res) => {
       reportsTo: req.body.reportsTo === "null" ? null : req.body.reportsTo,
     };
 
-    console.log(bodyParameters, "anush");
-
-    console.log("get body params", bodyParameters);
     //check if the credentials sent are actually valid - starts
     try {
       const user = await User.findOne({ email: req.body.email });
       user === null && res.status(404).json({ message: "User doesnt Exist" });
     } catch (e) {
-      console.log("errorrre");
+      console.log("error");
     }
 
     //check if the credentials sent are actually valid - end
@@ -66,7 +63,6 @@ export const getHierarchy = async (req, res) => {
         break;
       }
 
-      console.log("show next reports to : ", nextReportsTo);
     } while (nextReportsTo !== null);
 
     res.status(200).json(hierarchyArr);
@@ -162,10 +158,6 @@ export const getSenior = async (req, res) => {
 export const getSameDesignation = async (req, res) => {
   const reportsTo = req.body.reportsTo;
 
-  console.log('body log', req.body)
-
-  console.log("Same design check", reportsTo)
-
   try {
     const employees = await User.find({ reportsTo: reportsTo });
    
@@ -175,7 +167,6 @@ export const getSameDesignation = async (req, res) => {
       });
     }
 
-    console.log(employees);
 
     res.status(200).json({
       data: employees,
@@ -190,10 +181,8 @@ export const getPeopleReportingToCurrentUser = async (req, res) => {
   try {
 
     const email = req.body.email
-    console.log("Email for once",email)
 
     const user = await User.find({ reportsTo: email })
-    console.log("Email for once",user)
 
     res.status(200).json({
       data: user,

@@ -7,8 +7,6 @@ function CardComponent({ item, index, selectedUserEmail }) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  console.log('Equate',selectedUserEmail)
-
   return (
     <div>
       {index !== 0 && <div id='line'></div>}

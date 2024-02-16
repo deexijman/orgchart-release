@@ -27,7 +27,6 @@ function Chart({ chartdata }) {
           email: email
         })
 
-      console.log('response from call reporting to : ', response.data)
       setReportingTo(response.data.data)
     }
     catch (error) {
@@ -43,7 +42,6 @@ function Chart({ chartdata }) {
           reportsTo: reportsTo
         })
 
-      console.log('response from get org chart : ', response.data)
       setUserData(response.data.reverse())
     }
     catch (error) {
@@ -55,8 +53,6 @@ function Chart({ chartdata }) {
   const callSameDesignationData = async ({ reportsTo }) => {
 
     try {
-
-      console.log("Frontend : ", reportsTo)
 
       const response = await axios.post(sameDesignationEndpoint(),
         {
@@ -76,17 +72,10 @@ function Chart({ chartdata }) {
 
     // to handle unwanted login
     if (localStorage.getItem('email') === null && localStorage.getItem('reportsTo') === null) {
-      console.log('Just handle unwanted login')
       navigate('/')
       toast.error('Kindly Login To View Chart')
     }
     else {
-
-      // to handle login properly
-      console.log("Get details from storage", {
-        email: localStorage.getItem('email'),
-        reportsTo: localStorage.getItem('reportsTo')
-      })
 
       // set userData Initially
       callChartData({
@@ -202,7 +191,6 @@ function Chart({ chartdata }) {
 
   const handleLogout = () => {
     const cookie = localStorage.getItem("email")
-    console.log(cookie)
     localStorage.clear()
     navigate('/')
     toast.success("Logged out successfull")

@@ -9,16 +9,9 @@ export const loginHandler = async (req, res) => {
     const EMAIL = req.body.EMAIL;
     const PASSWORD = req.body.PASSWORD;
 
-    console.log("passed to the logger", {
-      ROLE,
-      EMAIL,
-      PASSWORD,
-    });
-
     if (ROLE === "USER") {
       //FIND IF USER IS THERE
       const user = await User.findOne({ name:NAME, email: EMAIL, password: PASSWORD });
-      console.log("logged user ", user);
 
       if (user === null) {
         // If user is not found, send an error response to the client
