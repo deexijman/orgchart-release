@@ -73,17 +73,15 @@ const Login = () => {
               <div className="row g-0 "  >
                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                    <h4 className="mb-4 text-center fw-bold" style={{ fontFamily: "-moz-initial",fontSize:"3rem", fontFamily: "Titillium Web", fontWeight: 200, maxWidth: '100%' }}>Organization Chart</h4>
+                    <h4 className="mb-4 text-center fw-bold" style={{ fontFamily: "-moz-initial", fontSize: "3rem", fontFamily: "Titillium Web", fontWeight: 200, maxWidth: '100%' }}>Organization Chart</h4>
 
                     <img src={hierarchyImage} id="banner_image" alt="Hierarchy_Vector" className="img-fluid" />
                   </div>
                 </div>
                 <div className="col-lg-6 login-body">
                   <div className="card-body p-md-5 mx-md-4">
-
-
+                    
                     <form>
-
 
                       <div className="form-outline mb-4">
                         <input

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'primereact/dropdown';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CardComponent from '../components/CardComponent';
-import { getOrganizationChart, sameDesignationEndpoint, getEmployeesReportingTo } from '../Utils/endpoints.js';
 import EmployeeCard from '../components/EmployeeCard'
+import {
+  callChartData,
+  callSameDesignationData,
+  callReportingToData
+} from '../Utils/dataFetching.js'
 
 function Chart({ chartdata }) {
 
@@ -19,155 +22,70 @@ function Chart({ chartdata }) {
   const [reportingTo, setReportingTo] = useState([])
   const [selectedUserEmail, setSelectedUserEmail] = useState(localStorage.getItem('email'))
 
-  const callReportingToData = async ({ email }) => {
-    try {
-
-      const response = await axios.post(getEmployeesReportingTo(),
-        {
-          email: email
-        })
-
-      setReportingTo(response.data.data)
-    }
-    catch (error) {
-      console.log("Error response", error.response)
-    }
-  }
-
-  const callChartData = async ({ email, reportsTo }) => {
-    try {
-      const response = await axios.post(getOrganizationChart(),
-        {
-          email: email,
-          reportsTo: reportsTo
-        })
-
-      setUserData(response.data.reverse())
-    }
-    catch (error) {
-      console.log("Error response", error.response)
-    }
-
-  }
-
-  const callSameDesignationData = async ({ reportsTo }) => {
-
-    try {
-
-      const response = await axios.post(sameDesignationEndpoint(),
-        {
-          reportsTo: reportsTo
-        })
-
-      setSameDesignation(response.data.data)
-
-    }
-    catch (error) {
-      console.log("Error response", error.response)
-    }
-
-  }
-
   useEffect(() => {
-
     // to handle unwanted login
     if (localStorage.getItem('email') === null && localStorage.getItem('reportsTo') === null) {
       navigate('/')
       toast.error('Kindly Login To View Chart')
     }
     else {
-
       // set userData Initially
       callChartData({
         email: localStorage.getItem('email'),
-        reportsTo: localStorage.getItem('reportsTo')
+        reportsTo: localStorage.getItem('reportsTo'),
+        setUserData: setUserData
       })
-
     }
-
   }, [])
 
   useEffect(() => {
-
-
     if (localStorage.getItem('email') !== null) { // to handle server crash
-
       if (selectedUser !== undefined && selectedUser !== null) {
 
         setSelectedUserEmail(selectedUser.email)
-
         callChartData({
           email: selectedUser.email,
-          reportsTo: selectedUser.reportsTo
+          reportsTo: selectedUser.reportsTo,
+          setUserData: setUserData
         })
-        // toast.success("Fetched User")
+
+        callSameDesignationData({
+          email: selectedUser.email,
+          reportsTo: selectedUser.reportsTo,
+          setSameDesignation: setSameDesignation
+        })
+
+        callReportingToData({
+          email: selectedUser.email,
+          setReportingTo: setReportingTo
+        })
+
+        callReportingToData({
+          email: selectedUser.email,
+          setReportingTo: setReportingTo
+        })
 
       } else {
 
         callChartData({
           email: localStorage.getItem('email'),
-          reportsTo: localStorage.getItem('reportsTo')
+          reportsTo: localStorage.getItem('reportsTo'),
+          setUserData: setUserData
         })
-
-      }
-
-
-    }
-
-  }, [selectedUser])
-
-
-
-  // update the same design employee list
-  useEffect(() => {
-
-    if (localStorage.getItem('reportsTo') !== null) { // to handle server crash
-
-      if (selectedUser !== undefined && selectedUser !== null) {
 
         callSameDesignationData({
-          email: selectedUser.email,
-          reportsTo: selectedUser.reportsTo
+          email: localStorage.getItem('email'),
+          reportsTo: localStorage.getItem('reportsTo'),
+          setSameDesignation: setSameDesignation
         })
-        //toast.success("Fetched User")
 
-      } else {
-
-        callSameDesignationData({
-          reportsTo: localStorage.getItem('reportsTo')
+        callReportingToData({
+          email: localStorage.getItem('email'),
+          setReportingTo: setReportingTo
         })
 
       }
-
     }
-
-
-  }, [selectedUser])
-
-  // reporting to
-  useEffect(() => {
-
-    // reporting To
-    if (localStorage.getItem('email') !== null) { // to handle server crash
-
-      if (selectedUser !== undefined && selectedUser !== null) {
-
-        callReportingToData({
-          email: selectedUser.email
-        })
-        //toast.success("Fetched User")
-
-      } else {
-
-        callReportingToData({
-          email: localStorage.getItem('email')
-        })
-
-      }
-
-
-    }
-
   }, [selectedUser])
 
   const searchTemplate = (option, props) => {
@@ -218,9 +136,7 @@ function Chart({ chartdata }) {
       <div >
         <div className="org-chart" >
           {userData.map((item, index) => (
-
-            <CardComponent key={index} index={index} item={item} selectedUserEmail={selectedUserEmail}  />
-
+            <CardComponent key={index} index={index} item={item} selectedUserEmail={selectedUserEmail} />
           ))}
         </div>
 
@@ -258,7 +174,6 @@ function Chart({ chartdata }) {
         </div>
 
         <div id="reportingTo-Container">
-
           {
             reportingTo.length > 0 &&
             <div class="container" style={{
@@ -267,7 +182,6 @@ function Chart({ chartdata }) {
               minWidth: '100%',
               marginTop: '40px',
             }}>
-
 
               <div class="row justify-content-center">
 
@@ -291,9 +205,6 @@ function Chart({ chartdata }) {
           }
 
         </div>
-
-
-
 
       </div>
     </div>
