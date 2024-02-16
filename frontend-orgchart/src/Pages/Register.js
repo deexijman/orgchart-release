@@ -5,7 +5,7 @@ import 'primereact/resources/primereact.min.css';
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
-import { addUserEndpoint, getDepartment, getRoles, getSeniorNames } from "../Utils/Endpoints";
+import { addUserEndpoint, getDepartment, getRoles, getSeniorNames } from "../Utils/endpoints.js";
 
 export default function Register() {
   const [selectedRole, setSelectedRole] = useState("");

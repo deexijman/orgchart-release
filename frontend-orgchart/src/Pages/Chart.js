@@ -7,7 +7,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CardComponent from '../components/CardComponent';
-import { getOrganizationChart, sameDesignationEndpoint, getEmployeesReportingTo } from '../Utils/Endpoints';
+import { getOrganizationChart, sameDesignationEndpoint, getEmployeesReportingTo } from '../Utils/endpoints.js';
 import EmployeeCard from '../components/EmployeeCard'
 
 function Chart({ chartdata }) {
@@ -17,7 +17,7 @@ function Chart({ chartdata }) {
   const [selectedUser, setSelectedUser] = useState(null);
   const [sameDesignation, setSameDesignation] = useState([])
   const [reportingTo, setReportingTo] = useState([])
-  const [selectedUserEmail, setSelectedUserEmail] = useState('')
+  const [selectedUserEmail, setSelectedUserEmail] = useState(localStorage.getItem('email'))
 
   const callReportingToData = async ({ email }) => {
     try {
@@ -131,15 +131,6 @@ function Chart({ chartdata }) {
 
   // update the same design employee list
   useEffect(() => {
-
-    // if (selectedUser !== undefined && selectedUser !== null) {
-
-    //   console.log("Selected User", selectedUser)
-    //   callSameDesignationData({
-    //     reportsTo: selectedUser.reportsTo
-    //   })
-
-    // }
 
     if (localStorage.getItem('reportsTo') !== null) { // to handle server crash
 
@@ -268,7 +259,7 @@ function Chart({ chartdata }) {
 
                 {sameDesignation.map((item, index) => (
                   <div key={index} class="col-lg-4 col-md-6 col-xs-12">
-                    <EmployeeCard item={item} />
+                    <EmployeeCard item={item} selectedUserEmail={selectedUserEmail} />
                   </div>
                 ))}
 

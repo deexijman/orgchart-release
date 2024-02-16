@@ -168,8 +168,7 @@ export const getSameDesignation = async (req, res) => {
 
   try {
     const employees = await User.find({ reportsTo: reportsTo });
-    console.log("1", employees);
-
+   
     if (employees === null) {
       res.status(200).json({
         data: [],
