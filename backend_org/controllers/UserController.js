@@ -52,13 +52,15 @@ export const getUserData = asyncErrorHandler(async (req, res, next) => {
 
 // added new
 export const delUser = asyncErrorHandler(async (req, res, next) => {
-  const LAST = req.query.LAST;
+  const ISLEAF = req.query.ISLEAF || 'deexit';
   const EMAIL = req.query.EMAIL;
-  const ALTERNATE = req.query.ALTERNATE;
+  const ALTERNATE = req.query.ALTERNATE || 'alter';
   let user;
 
+  console.log(req.query)
+
   //handle reports to when the terminated person is not at leaf designation
-  if (LAST === "false") {
+  if (ISLEAF === "false") {
     const updatedDocs = await User.updateMany(
       { reportsTo: `${EMAIL}` },
       { $set: { reportsTo: `${ALTERNATE}` } }

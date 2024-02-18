@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Dropdown } from 'primereact/dropdown';
-import { getAllUsers, sameDesignationEndpoint } from '../Utils/endpoints';
+import { getAllUsers, sameDesignationEndpoint, terminateUserEndpoint } from '../Utils/endpoints';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 function DeleteUser() {
 
@@ -48,14 +49,52 @@ function DeleteUser() {
 
   useEffect(() => {
 
+    setSelectedReportingTo('') // clean this when the previous state is changed 
     if (selectedEmployeeDetails) {
       updateSameDesignationEmails(selectedEmployeeDetails.reportsTo, selectedEmployeeDetails.department) // filter response based on role and render
     }
 
   }, [selectedEmployeeDetails])
 
+  const submissionTerminate = async(email, reportingto, isleaf) =>{
+
+    try{
+      const response = axios.delete(terminateUserEndpoint(isleaf, email, reportingto))
+      console.log('deleted user',response)
+      toast.success('deleted user')
+    }catch(err){
+      console.log('error deleting user',err.message)
+      toast.error('error deleting user',err.message)
+    }
+    
+  }
+
   const handleTerminateSubmit = () => {
-    console.log('Terminated employee', selectedEmployeeDetails.email, "....")
+
+    if(selectedReportingTo===''){
+
+      if((selectedEmployeeDetails.role==='DEVELOPER' || selectedEmployeeDetails.role==='JUNIOR_HR')){
+        console.log('Allow submit ',selectedEmployeeDetails.email, selectedReportingTo)
+        toast.success('submitted')
+        setSelectedEmployeeDetails({})
+        setSelectedReportingTo('')
+
+        // LAST = true
+        submissionTerminate(selectedEmployeeDetails.email, selectedReportingTo, 'true')
+      }else{
+        toast.error('Select reporting to field is empty')
+      }
+
+    } else{
+      console.log('Allow submit ',selectedEmployeeDetails.email, selectedReportingTo)
+      toast.success('submitted')
+      setSelectedEmployeeDetails({})
+      setSelectedReportingTo('')
+
+      // LAST = false
+      submissionTerminate(selectedEmployeeDetails.email, selectedReportingTo, 'false')
+    }
+    
   }
 
   const handleLogout = () => {

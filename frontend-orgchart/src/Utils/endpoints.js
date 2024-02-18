@@ -38,6 +38,10 @@ function getAllUsers(){
     return "http://localhost:4000/api/org/allusers"
 }
 
+function terminateUserEndpoint(isleaf,email,reportingto){
+    return `http://localhost:4000/api/user?ISLEAF=${isleaf}&EMAIL=${email}&ALTERNATE=${reportingto}`
+}
+
 export {
     getRoles,
     getDepartment,
@@ -48,5 +52,6 @@ export {
     addUserEndpoint,
     sameDesignationEndpoint,
     getEmployeesReportingTo,
-    getAllUsers
+    getAllUsers,
+    terminateUserEndpoint
 }
