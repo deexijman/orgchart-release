@@ -8,6 +8,19 @@ import loginRouter from "./routes/Login.js";
 import adminRouter from "./routes/Admin.js";
 import mongoose from "mongoose";
 
+//error handling
+import { CustomError } from "./utils/CustomError.js";
+import { globalErrorHandler } from "./controllers/ErrorController.js";
+
+//
+
+//handles uncaught exceptions
+process.on("uncaughtException", (err) => {
+  console.log("Uncaught exception occurred, Shutting Down!!");
+
+  process.exit(1);
+});
+
 const app = express();
 
 dotenv.config();
@@ -22,17 +35,18 @@ const MONGO_PSWD = process.env.MONGO_PSWD;
 
 const mongoURI = `mongodb+srv://${MONGO_USER}:${MONGO_PSWD}@organizationchart.wvqbdvo.mongodb.net/OrganizationChart`; // Your MongoDB URI
 
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  bufferCommands: false, // Disable command bufferin
-});
-
-//error handling
-import { CustomError } from "./utils/CustomError.js";
-import { globalErrorHandler } from "./controllers/ErrorController.js";
-
-//
+mongoose
+  .connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    bufferCommands: false, // Disable command bufferin
+  })
+  .then((conn) => {
+    console.log("db connection successful");
+  })
+  .catch((e) => {
+    console.log("Cannot Connect To DB");
+  });
 
 //--------------
 app.use("/api/user", userRouter);
@@ -60,6 +74,16 @@ app.all("*", (req, res, next) => {
 
 app.use(globalErrorHandler);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+});
+
+//handle any unrejected promise - async codee...
+process.on("unhandledRejection", (err) => {
+  console.log(err.message);
+  console.log("unhandled rejection occured shutting down");
+  server.close(() => {
+    // 1 - means uncaught exception
+    process.exit(1);
+  });
 });
