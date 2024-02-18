@@ -82,7 +82,6 @@ const Login = () => {
                   <div className="card-body p-md-5 mx-md-4">
                     
                     <form>
-
                       <div className="form-outline mb-4">
                         <input
                           type="email"

@@ -5,7 +5,7 @@ import { CustomError } from "../utils/CustomError.js";
 
 // register handler
 export const registerHandler = asyncErrorHandler(async (req, res, next) => {
-  // try {
+
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(req.body.password, salt);
 
@@ -23,4 +23,5 @@ export const registerHandler = asyncErrorHandler(async (req, res, next) => {
     return next(err);
   }
   res.status(200).json({ message: "Admin created successfully", email: email });
+  
 });

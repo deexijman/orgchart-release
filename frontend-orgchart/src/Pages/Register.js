@@ -105,13 +105,14 @@ export default function Register() {
       setFormData({ name: '', email: '', password: '', domain: '', role: '', department: '', reportsTo: '' })
       setSelectedTypeRole('')
       setSelectedRole('')
-
       setselectedDept('')
+      setreportto('')
     } catch (error) {
       setFormData({ name: '', email: '', password: '', domain: '', role: '', department: '', reportsTo: '' })
       setSelectedTypeRole('')
       setSelectedRole('')
-
+      setselectedDept('')
+      setreportto('')
       toast.error(`Registration Error : ${error?.request?.responseText}`)
     }
   }

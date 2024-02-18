@@ -59,10 +59,7 @@ export const delUser = asyncErrorHandler(async (req, res, next) => {
       { reportsTo: `${EMAIL}` },
       { $set: { reportsTo: `${ALTERNATE}` } }
     );
-    // catch (e) {
-    //   console.log("FAILED TO UPDATE....");
-    //   res.status(500).send("FAILED TO DELETE USER");
-    // }
+   
   }
 
   user = await User.deleteOne({ email: EMAIL });
@@ -71,10 +68,5 @@ export const delUser = asyncErrorHandler(async (req, res, next) => {
   return res.status(200).json({
     message: "Deleted Successfullt!!",
   });
-  //  catch (e) {
-  //   console.log("Failed to Delete USER : ", user);
-  //   return res.status(200).json({
-  //     message: "Failed to Delete User!!",
-  //   });
-  // }
+
 });

@@ -21,21 +21,14 @@ export const getHierarchy = asyncErrorHandler(async (req, res, next) => {
     email: req.body.email,
     reportsTo: req.body.reportsTo === "null" ? null : req.body.reportsTo,
   };
-
-  //check if the credentials sent are actually valid - starts
-
+  
   const user = await User.findOne({ email: req.body.email });
 
   if (user === null) {
     const err = new CustomError("User doesnt Exist", 404);
     return next(err);
   }
-  // user === null && res.status(404).json({ message: "User doesnt Exist" });
-  // } catch (e) {
-  //   console.log("error");
-  // }
 
-  //check if the credentials sent are actually valid - end
 
   const hierarchyArr = [];
   let nextReportsTo = bodyParameters.reportsTo;
@@ -70,11 +63,6 @@ export const getHierarchy = asyncErrorHandler(async (req, res, next) => {
   } while (nextReportsTo !== null);
 
   res.status(200).json(hierarchyArr);
-  // } catch (error) {
-  //   res.status(500).json({
-  //     message: "Something went wrong, Cannot fetch the hierarachy",
-  //   });
-  // }
 });
 
 export const getRoles = (req, res, next) => {
@@ -85,8 +73,8 @@ export const getRoles = (req, res, next) => {
     const err = new CustomError("Domain doesn't  exist", 400);
     return next(err);
   }
-  //check if domain exists - ends
 
+  //check if domain exists - ends
   res.status(200).json({
     message: `sent roles from : ${DOMAIN}`,
     data: HIERARCHY[DOMAIN].filter((data) => data != "CFO" && data != "CTO"),
@@ -94,7 +82,7 @@ export const getRoles = (req, res, next) => {
 };
 
 export const getDept = (req, res, next) => {
-  // try {
+
   const DOMAIN = req.query.DOMAIN;
   //check if domain exists - starts
   if (DOMAIN !== "PR" && DOMAIN !== "TECH")
@@ -105,15 +93,10 @@ export const getDept = (req, res, next) => {
     message: `Sent all departments from : ${DOMAIN}`,
     data: DEPARTMENTS[DOMAIN],
   });
-  // } catch (error) {
-  //   res.status(500).json({
-  //     message: `Failed to fetch departments from : ${DOMAIN}`,
-  //   });
-  // }
 };
 
 export const getSenior = asyncErrorHandler(async (req, res, next) => {
-  // try {
+
   //const DOMAIN = req.query.DOMAIN
   const ROLE = req.query.ROLE;
   const DEPARTMENT = req.query.DEPARTMENT;
@@ -160,7 +143,6 @@ export const getSenior = asyncErrorHandler(async (req, res, next) => {
 export const getSameDesignation = asyncErrorHandler(async (req, res, next) => {
   const reportsTo = req.body.reportsTo;
 
-  // try {
   const employees = await User.find({ reportsTo: reportsTo });
 
   if (employees === null) {
@@ -172,14 +154,11 @@ export const getSameDesignation = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json({
     data: employees,
   });
-  // } catch (e) {
-  //   res.status(500).send("Interal Server Error");
-  // }
 });
 
 export const getPeopleReportingToCurrentUser = asyncErrorHandler(
   async (req, res, next) => {
-    // try {
+
     const email = req.body.email;
 
     const users = await User.find({ reportsTo: email });
