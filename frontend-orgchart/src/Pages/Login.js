@@ -36,7 +36,7 @@ const Login = () => {
         localStorage.setItem("email", resEmail);
         localStorage.setItem("reportsTo", reportsTo);
 
-        navigate('/register')
+        navigate('/user')
 
       } else if (response.status === 200 && accessRole === 'USER') {
 

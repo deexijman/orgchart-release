@@ -1,9 +1,13 @@
 import './Styles/App.css';
 import Login from './Pages/Login';
 import Chart from './Pages/Chart';
-import Register from './Pages/Register';
+import User from './Pages/User';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AddUser from './Pages/AddUser';
+import DeleteUser from './Pages/DeleteUser';
+import PromoteUser from './Pages/PromoteUser';
+
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -51,8 +55,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/chart" element={<Chart chartdata={allUsers} />} />
-          <Route path='/register' element={<Register />} />
+          <Route path="/user/*" element={<User />} />
         </Routes>
+
+        
 
       </BrowserRouter>
     </div>

@@ -11,7 +11,7 @@ import { addUserEndpoint, getDepartment, getRoles, getSeniorNames } from "../Uti
 // roleType : designation
 // departmentType : department 
 
-export default function Register() {
+export default function AddUser() {
   
   const [reportto, setreportto] = useState("");
   const [formData, setFormData] = useState({ name: '', email: '', password: '', domain: '', role: '', department: '', reportsTo: '' });

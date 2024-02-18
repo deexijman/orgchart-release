@@ -34,6 +34,10 @@ function getEmployeesReportingTo(){
     return "http://localhost:4000/api/org/reportingto"
 }
 
+function getAllUsers(){
+    return "http://localhost:4000/api/org/allusers"
+}
+
 export {
     getRoles,
     getDepartment,
@@ -43,5 +47,6 @@ export {
     authenticationEndpoint,
     addUserEndpoint,
     sameDesignationEndpoint,
-    getEmployeesReportingTo
+    getEmployeesReportingTo,
+    getAllUsers
 }

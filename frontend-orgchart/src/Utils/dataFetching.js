@@ -32,12 +32,13 @@ const callChartData = async ({ email, reportsTo, setUserData }) => {
 
 }
 
-const callSameDesignationData = async ({ reportsTo, setSameDesignation }) => {
+const callSameDesignationData = async ({ email, reportsTo, setSameDesignation }) => {
 
     try {
 
         const response = await axios.post(sameDesignationEndpoint(),
             {
+                email: email,
                 reportsTo: reportsTo
             })
 

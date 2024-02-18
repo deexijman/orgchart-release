@@ -57,13 +57,12 @@ export const delUser = asyncErrorHandler(async (req, res, next) => {
   const ALTERNATE = req.query.ALTERNATE;
   let user;
 
-  //no need to chnage anuthing in the existing hierarachy , just delete the user
+  //handle reports to when the terminated person is not at leaf designation
   if (LAST === "false") {
     const updatedDocs = await User.updateMany(
       { reportsTo: `${EMAIL}` },
       { $set: { reportsTo: `${ALTERNATE}` } }
     );
-   
   }
 
   user = await User.deleteOne({ email: EMAIL });
