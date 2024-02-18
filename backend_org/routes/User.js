@@ -4,6 +4,7 @@ import {
   delUser,
   getUserData,
   userRegistration,
+  promoteUser
 } from "../controllers/UserController.js";
 
 const userRouter = express.Router();
@@ -19,5 +20,9 @@ userRouter.get("/", getUserData);
 //added new
 //delete user
 userRouter.delete("/", delUser);
+
+//added new
+//delete user
+userRouter.put("/", promoteUser);
 
 export default userRouter;

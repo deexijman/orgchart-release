@@ -1,6 +1,7 @@
 import User from "../models/Users.js";
 import { CustomError } from "../utils/CustomError.js";
 import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
+import { HIERARCHY, DEPARTMENTS } from "../utils/data.js";
 
 export const userRegistration = asyncErrorHandler(async (req, res, next) => {
   const formData = {
@@ -26,16 +27,19 @@ export const userRegistration = asyncErrorHandler(async (req, res, next) => {
   console.log("User created successfully");
   return res.status(200).send("User created successfully");
 });
+
 //added new
 export const getUserData = asyncErrorHandler(async (req, res, next) => {
   const EMAIL = req.query.EMAIL;
 
+  console.log('Got emai',EMAIL)
+
   const user = await User.findOne({ email: EMAIL });
 
-  const isExisting = await User.findOne({ email: req.body.email });
+  const isExisting = await User.findOne({ email: EMAIL });
 
   if (!isExisting) {
-    console.log("USER DOESNOT EXISTS");
+    console.log("USER DOES NOT EXISTS");
     const err = new CustomError("USER DOESNOT EXISTS", 404);
     return next(err);
   }
@@ -70,3 +74,18 @@ export const delUser = asyncErrorHandler(async (req, res, next) => {
   });
 
 });
+
+export const promoteUser = asyncErrorHandler( async(req, res, next) =>{
+
+  const {
+    DOMAIN,
+    DESIGNATION,
+    DEPARTMENTS,
+    EMAIL,
+    PROMOTE_DESIGNATION,
+    REPORT_TO, // promoted employee report to 
+    JR_EMAIL_USERS, // list of all employees who should be redirected
+    JR_REPORTS_TO // whom to redirect juniors to
+  } = req.body
+
+})

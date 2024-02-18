@@ -7,14 +7,21 @@ import { useNavigate } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
 import { addUserEndpoint, getDepartment, getRoles, getSeniorNames } from "../Utils/endpoints.js";
 
+// type : domain
+// roleType : designation
+// departmentType : department 
+
 export default function Register() {
-  const [selectedRole, setSelectedRole] = useState("");
-  const [selectedTypeRole, setSelectedTypeRole] = useState("")
+  
   const [reportto, setreportto] = useState("");
   const [formData, setFormData] = useState({ name: '', email: '', password: '', domain: '', role: '', department: '', reportsTo: '' });
+  
   const [type, setType] = useState('');
   const [roleType, setroleType] = useState('');
   const [departmentType, setDepartmentType] = useState('');
+
+  const [selectedRole, setSelectedRole] = useState("");
+  const [selectedTypeRole, setSelectedTypeRole] = useState("")
   const [selectedDept, setselectedDept] = useState("");
 
   const [roledrop, setroleDrop] = useState([]);
@@ -31,7 +38,6 @@ export default function Register() {
     });
 
   };
-
 
   useEffect(() => {
     // to handle unwanted login
@@ -129,35 +135,36 @@ export default function Register() {
   }
 
   return (
-    <section className="vh-100 register-body">
-      <div className="mask d-flex align-items-center">
-        <div className="container h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-12 col-md-9 col-lg-7 col-xl-6 p-5">
+    <section className="register-body">
+      <div className="d-flex align-items-center justify-content-center"  style={{
+        minHeight:'100vh'
+      }}>
+        <div className="container">
+          <div className="row d-flex justify-content-center align-items-center">
+            <div className="col-12 col-md-9 col-lg-7 col-xl-6 p-3">
               <div className="card register-details" style={{ borderRadius: '15px' }}>
-                <div className="card-body p-5 ">
-                  <h5 className="mb-4 text-center display-3 fw-bold" style={{ fontSize: '3rem', maxWidth: '100%', color: '#070F2B' }}>Register</h5>
+                <div className="card-body">
+                  <h5 className="text-center display-4 mb-4 fw-bold" style={{ fontSize:"3rem" ,maxWidth: '100%', color: '#070F2B' }}>Register</h5>
                   <form>
-
-                    <div className="form-outline mb-4">
+                    <div className="form-outline m-3 ">
                       <input type="text" name="name" placeholder="Name" autoComplete="off"
-                        style={{ fontSize: '18px' }}
+                        style={{ fontSize: '17px' }}
                         value={formData.name} id="form3Example1cg" className="form-control form-control-lg" onChange={handleInputChange} />
                     </div>
 
-                    <div className="form-outline mb-4">
+                    <div className="form-outline m-3">
                       <input type="email" name="email" placeholder="Email" autoComplete="off"
-                        style={{ fontSize: '18px' }}
+                        style={{ fontSize: '17px' }}
                         value={formData.email} id="form3Example3cg" className="form-control form-control-lg" onChange={handleInputChange} />
                     </div>
 
-                    <div className="form-outline mb-4">
+                    <div className="form-outline m-3">
                       <input type="password" name="password" placeholder="Password" autoComplete="false"
-                        style={{ fontSize: '18px' }}
+                        style={{ fontSize: '17px' }}
                         value={formData.password} id="form3Example4cg" className="form-control form-control-lg" onChange={handleInputChange} />
                     </div>
 
-                    <div className="form-outline mb-4 times-new-roman-font">
+                    <div className="form-outline m-3 times-new-roman-font">
                       <div className="card flex justify-content-center">
                         <Dropdown
                           value={selectedTypeRole} name='role'
@@ -180,7 +187,7 @@ export default function Register() {
                     </div>
 
 
-                    <div className="form-outline mb-4">
+                    <div className="form-outline m-3">
                       <div className="card flex justify-content-center">
                         <Dropdown
                           value={selectedRole} name='role'
@@ -202,7 +209,7 @@ export default function Register() {
                       </div>
                     </div>
 
-                    <div className="form-outline mb-4">
+                    <div className="form-outline m-3">
                       <div className="card flex justify-content-center">
                         <Dropdown
                           value={selectedDept} name='role'
@@ -223,7 +230,7 @@ export default function Register() {
                       </div>
                     </div>
 
-                    <div className="form-outline mb-4">
+                    <div className="form-outline m-3">
                       <div className="card flex justify-content-center">
                         <Dropdown
                           value={reportto} name='reportingto'
@@ -245,12 +252,16 @@ export default function Register() {
                       </div>
                     </div>
 
-                    <div className="d-flex justify-content-center mb-3" style={{fontFamily:'Times New Roman'}}>
+                    <div className="d-flex justify-content-center m-3" style={{
+                      fontFamily:'Times New Roman'
+                    }}>
                       <button type="button"
                         className="btn  btn-block btn-lg gradient-custom-4 text-body" onClick={handleSubmit}>Register</button>
                     </div>
-                    <div className="d-flex justify-content-center" style={{fontFamily:'Times New Roman'}}>
-                      <button type="button" className="btn  btn-block btn-lg gradient-custom-4 text-body" style={{ right: "7%" }}
+                    <div className="d-flex justify-content-center m-3" style={{fontFamily:'Times New Roman'}}>
+                      <button type="button" className="btn  btn-block btn-lg gradient-custom-4 text-body" style={{ 
+                        right: "7%"
+                      }}
                         onClick={handleLogout}>Logout <i class="fa-solid fa-arrow-right-from-bracket"></i></button>
                     </div>
                   </form>
