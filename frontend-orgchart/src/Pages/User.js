@@ -18,7 +18,7 @@ function User() {
           <div className="col-md-6 col-sm-12 d-flex justify-content-end" >
             <Button component={Link} to="/user/" style={{ color: "white" }} variant="text">ADD</Button>
             <Button component={Link} to="/user/delete/" style={{ color: "white" }} variant="text">TERMINATE</Button>
-            <Button component={Link} to="/user/promote/" style={{ color: "white" }} variant="text">PROMOTE</Button>
+            {/* <Button component={Link} to="/user/promote/" style={{ color: "white" }} variant="text">PROMOTE</Button> */}
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@ function User() {
       <Routes>
         <Route path="/" element={<AddUser />} />
         <Route path="/delete" element={<DeleteUser />} />
-        <Route path="/promote" element={<PromoteUser />} />
+        {/* <Route path="/promote" element={<PromoteUser />} /> */}
       </Routes>
 
     </div>
