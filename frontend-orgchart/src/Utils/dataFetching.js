@@ -1,4 +1,4 @@
-import { getOrganizationChart, sameDesignationEndpoint, getEmployeesReportingTo } from '../Utils/endpoints.js';
+import { getOrganizationChart, sameDesignationEndpoint, getEmployeesReportingTo } from './endpoints.js';
 import axios from 'axios';
 
 const callReportingToData = async ({ email, setReportingTo }) => {

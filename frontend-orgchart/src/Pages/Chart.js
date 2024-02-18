@@ -12,6 +12,8 @@ import {
   callSameDesignationData,
   callReportingToData
 } from '../Utils/dataFetching.js'
+import SameDesignation from '../components/SameDesignation.js';
+import ReportingTo from '../components/ReportingTo.js';
 
 function Chart({ chartdata }) {
 
@@ -140,71 +142,10 @@ function Chart({ chartdata }) {
           ))}
         </div>
 
-        <div id="samedesig-container">
-          {
-            sameDesignation.length > 0
-            &&
-            <div class="container" style={{
-              border: "3px solid #070F2B",
-              padding: '10px',
-              minWidth: '100%',
-              marginTop: '40px'
-            }}>
-              <div class="row justify-content-center">
+        <SameDesignation sameDesignation={sameDesignation} selectedUserEmail={selectedUserEmail} />
 
-                <div class="col-12">
-                  <p
-                    style={{
-                      fontFamily: 'Ubuntu',
-                      fontWeight: 500
-                    }}
-                  >Folks in your rank ({sameDesignation.length})</p>
-                </div>
 
-                {sameDesignation.map((item, index) => (
-                  <div key={index} class="col-lg-4 col-md-6 col-xs-12">
-                    <EmployeeCard item={item} selectedUserEmail={selectedUserEmail} />
-                  </div>
-                ))}
-
-              </div>
-            </div>
-          }
-
-        </div>
-
-        <div id="reportingTo-Container">
-          {
-            reportingTo.length > 0 &&
-            <div class="container" style={{
-              border: "3px solid #070F2B",
-              padding: '10px',
-              minWidth: '100%',
-              marginTop: '40px',
-            }}>
-
-              <div class="row justify-content-center">
-
-                <div class="col-12">
-                  <p
-                    style={{
-                      fontFamily: 'Ubuntu',
-                      fontWeight: 500
-                    }}
-                  >Reporting to you ({reportingTo.length})</p>
-                </div>
-
-                {reportingTo.map((item, index) => (
-                  <div key={index} class="col-lg-4 col-md-6 col-xs-12">
-                    <EmployeeCard item={item} />
-                  </div>
-                ))}
-
-              </div>
-            </div>
-          }
-
-        </div>
+        <ReportingTo reportingTo={reportingTo} />
 
       </div>
     </div>
