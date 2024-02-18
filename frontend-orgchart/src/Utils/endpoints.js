@@ -42,6 +42,10 @@ function terminateUserEndpoint(isleaf,email,reportingto){
     return `http://localhost:4000/api/user?ISLEAF=${isleaf}&EMAIL=${email}&ALTERNATE=${reportingto}`
 }
 
+function promoteUserEndpoint(){
+    return `http://localhost:4000/api/user/` 
+}
+
 export {
     getRoles,
     getDepartment,
@@ -53,5 +57,6 @@ export {
     sameDesignationEndpoint,
     getEmployeesReportingTo,
     getAllUsers,
-    terminateUserEndpoint
+    terminateUserEndpoint,
+    promoteUserEndpoint
 }

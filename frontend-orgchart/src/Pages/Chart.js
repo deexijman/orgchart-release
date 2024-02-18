@@ -65,10 +65,10 @@ function Chart({ chartdata }) {
           setReportingTo: setReportingTo,
         });
 
-        callReportingToData({
-          email: selectedUser.email,
-          setReportingTo: setReportingTo,
-        });
+        // callReportingToData({
+        //   email: selectedUser.email,
+        //   setReportingTo: setReportingTo,
+        // });
       } else {
         callChartData({
           email: localStorage.getItem("email"),

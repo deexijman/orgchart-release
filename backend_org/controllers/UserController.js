@@ -52,10 +52,9 @@ export const getUserData = asyncErrorHandler(async (req, res, next) => {
 
 // added new
 export const delUser = asyncErrorHandler(async (req, res, next) => {
-  const ISLEAF = req.query.ISLEAF || 'deexit';
+  const ISLEAF = req.query.ISLEAF;
   const EMAIL = req.query.EMAIL;
-  const ALTERNATE = req.query.ALTERNATE || 'alter';
-  let user;
+  const ALTERNATE = req.query.ALTERNATE;
 
   console.log(req.query)
 
@@ -67,7 +66,7 @@ export const delUser = asyncErrorHandler(async (req, res, next) => {
     );
   }
 
-  user = await User.deleteOne({ email: EMAIL });
+  let user = await User.deleteOne({ email: EMAIL });
 
   console.log("USER DELETE SUCCESSFULLY, ", user);
   return res.status(200).json({
@@ -79,14 +78,31 @@ export const delUser = asyncErrorHandler(async (req, res, next) => {
 export const promoteUser = asyncErrorHandler( async(req, res, next) =>{
 
   const {
-    DOMAIN,
-    DESIGNATION,
-    DEPARTMENTS,
     EMAIL,
-    PROMOTE_DESIGNATION,
-    REPORT_TO, // promoted employee report to 
-    JR_EMAIL_USERS, // list of all employees who should be redirected
-    JR_REPORTS_TO // whom to redirect juniors to
+    ALTERNATE,
+    SENIOR_REPORTTO
   } = req.body
+
+  console.log({
+    EMAIL,
+    ALTERNATE,
+    SENIOR_REPORTTO
+  })
+
+  // replace reportto to EMAIL
+  const updatedDocs = await User.updateMany(
+    { reportsTo: `${EMAIL}` },
+    { $set: { reportsTo: `${ALTERNATE}` } }
+  );
+
+  console.log('updated',updatedDocs)
+
+  // Update senior report to
+  let user = await User.updateOne({ reportsTo: SENIOR_REPORTTO });
+
+  console.log("USER PROMOTED SUCCESSFULLY, ", user);
+  return res.status(200).json({
+    message: "Promotion Successfull!!",
+  });
 
 })

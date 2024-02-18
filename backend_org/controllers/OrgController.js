@@ -65,6 +65,7 @@ export const getHierarchy = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json(hierarchyArr);
 });
 
+
 export const getRoles = (req, res, next) => {
   const DOMAIN = req.query.DOMAIN;
 
@@ -129,6 +130,8 @@ export const getSenior = asyncErrorHandler(async (req, res, next) => {
   //final set of emails that needs to be sent
   const emails = SENIOR_EMAILS.map((obj) => obj.email);
 
+  const senioremails = SENIOR_EMAILS.map((obj) => obj.reportsTo)
+
   if (!emails) {
     const err = new CustomError("Error fetching the senior email array", 500);
     return next(err);
@@ -137,6 +140,7 @@ export const getSenior = asyncErrorHandler(async (req, res, next) => {
   res.status(200).send({
     message: "Senior email array sent successfully",
     data: emails,
+    seniordata : senioremails
   });
 });
 
