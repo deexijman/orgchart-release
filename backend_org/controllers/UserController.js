@@ -2,6 +2,7 @@ import User from "../models/Users.js";
 import { CustomError } from "../utils/CustomError.js";
 import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
 import { HIERARCHY, DEPARTMENTS } from "../utils/data.js";
+import { sendMail } from "./MailController.js";
 
 export const userRegistration = asyncErrorHandler(async (req, res, next) => {
   const formData = {
@@ -22,9 +23,11 @@ export const userRegistration = asyncErrorHandler(async (req, res, next) => {
     const err = new CustomError("User already exists", 409);
     return next(err);
   }
+
   // User does not exist, proceed to create the user
   const user = await User.create(formData);
   console.log("User created successfully");
+
   return res.status(200).send("User created successfully");
 });
 
@@ -32,7 +35,7 @@ export const userRegistration = asyncErrorHandler(async (req, res, next) => {
 export const getUserData = asyncErrorHandler(async (req, res, next) => {
   const EMAIL = req.query.EMAIL;
 
-  console.log('Got emai',EMAIL)
+  console.log('Got emai', EMAIL)
 
   const user = await User.findOne({ email: EMAIL });
 
@@ -69,13 +72,19 @@ export const delUser = asyncErrorHandler(async (req, res, next) => {
   let user = await User.deleteOne({ email: EMAIL });
 
   console.log("USER DELETE SUCCESSFULLY, ", user);
+
+  const sub = `Farewell and Best Wishes For the Departure from Jman Group;`
+  const text = `We extend our gratitude for their contributions and wish them success in their future endeavors. Their professionalism and collaborative spirit will be remembered fondly.";`
+
+  sendMail(sub, text, EMAIL);
+
   return res.status(200).json({
     message: "Deleted Successfullt!!",
   });
 
 });
 
-export const promoteUser = asyncErrorHandler( async(req, res, next) =>{
+export const promoteUser = asyncErrorHandler(async (req, res, next) => {
 
   const {
     EMAIL,
@@ -95,7 +104,7 @@ export const promoteUser = asyncErrorHandler( async(req, res, next) =>{
     { $set: { reportsTo: `${ALTERNATE}` } }
   );
 
-  console.log('updated',updatedDocs)
+  console.log('updated', updatedDocs)
 
   // Update senior report to
   let user = await User.updateOne({ reportsTo: SENIOR_REPORTTO });
