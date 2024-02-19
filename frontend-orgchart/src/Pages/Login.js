@@ -26,8 +26,11 @@ const Login = () => {
         PASSWORD: password,
       });
 
-      const { name, email: resEmail, role, reportsTo, accessRole } = response.data
+      const { name, email: resEmail, role, reportsTo, accessRole, token } = response.data
 
+      console.log('Received token',token)
+      localStorage.setItem('jwttoken',token)
+      console.log('Token set',token)
 
       if (response.status === 200 && accessRole === 'ADMIN') {
 

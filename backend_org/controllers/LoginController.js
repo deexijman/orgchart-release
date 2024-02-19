@@ -3,6 +3,7 @@ import Admin from "../models/Admin.js";
 import bcrypt from "bcrypt";
 import { asyncErrorHandler } from "../utils/asyncErrorHandler.js";
 import { CustomError } from "../utils/CustomError.js";
+import { signToken } from "../utils/createJWT.js";
 
 export const loginHandler = asyncErrorHandler(async (req, res, next) => {
   
@@ -29,12 +30,15 @@ export const loginHandler = asyncErrorHandler(async (req, res, next) => {
 
     const { name, email, role, reportsTo } = user;
 
+    const token = signToken(email);
+
     res.status(200).json({
       name: name,
       email: email,
       role: role,
       reportsTo: reportsTo,
       accessRole: ROLE,
+      token: token
     });
 
     // user === null  && res.status(440).json({ message: '"Wrong credentials!"' });
@@ -56,10 +60,12 @@ export const loginHandler = asyncErrorHandler(async (req, res, next) => {
 
     const { name, email } = admin;
 
+    const token = signToken(email);
     res.status(200).json({
       name: name,
       email: email,
       accessRole: ROLE,
+      token: token
     });
   
   } else {
