@@ -3,7 +3,9 @@ import EmployeeCard from './EmployeeCard'
 
 function ReportingTo({ reportingTo }) {
   return (
-    <div id="reportingTo-Container">
+    <div id="reportingTo-Container" style={{
+      margin: '10px'
+    }}>
       {
         reportingTo.length > 0 &&
         <div class="container" style={{

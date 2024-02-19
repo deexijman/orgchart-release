@@ -58,8 +58,6 @@ function App() {
           <Route path="/user/*" element={<User />} />
         </Routes>
 
-        
-
       </BrowserRouter>
     </div>
   );

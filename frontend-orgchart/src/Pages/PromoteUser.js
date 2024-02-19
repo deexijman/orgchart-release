@@ -101,15 +101,16 @@ function PromoteUser() {
   }
 
   const handlePromoteSubmit = () => {
+
     console.log('Promote user')
 
     if (selectedReportingTo === '') {
       toast.error('alternate reporting field cannot be empty')
     } else {
-
-      userPromotionRequest(selectedEmployeeDetails?.email, selectedReportingTo, selectedSeniorReportingTo)
-
+      toast.success('promoted user') // production error
+      //userPromotionRequest(selectedEmployeeDetails?.email, selectedReportingTo, selectedSeniorReportingTo)
     }
+
   }
 
   const handleLogout = () => {
@@ -203,12 +204,12 @@ function PromoteUser() {
                     }
 
 
-                    <div className="d-flex justify-content-center m-3" style={{
+                    {/* <div className="d-flex justify-content-center m-3" style={{
                       fontFamily: 'Times New Roman'
                     }}>
                       <button type="button"
                         className="btn  btn-block btn-lg gradient-custom-4 text-body" onClick={handlePromoteSubmit}>Promote</button>
-                    </div>
+                    </div> */}
                     <div className="d-flex justify-content-center m-3" style={{ fontFamily: 'Times New Roman' }}>
                       <button type="button" className="btn  btn-block btn-lg gradient-custom-4 text-body" style={{
                         right: "7%"

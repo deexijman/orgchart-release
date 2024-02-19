@@ -3,7 +3,9 @@ import EmployeeCard from './EmployeeCard'
 
 function SameDesignation({ sameDesignation, selectedUserEmail }) {
     return (
-        <div id="samedesig-container">
+        <div id="samedesig-container" style={{
+            margin:'10px'
+        }}>
             {
                 sameDesignation.length > 0
                 &&

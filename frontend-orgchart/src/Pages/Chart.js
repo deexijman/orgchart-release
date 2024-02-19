@@ -6,7 +6,6 @@ import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CardComponent from "../components/CardComponent";
-import EmployeeCard from "../components/EmployeeCard";
 import {
   callChartData,
   callSameDesignationData,
@@ -17,11 +16,11 @@ import ReportingTo from '../components/ReportingTo.js';
 
 function Chart({ chartdata }) {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [sameDesignation, setSameDesignation] = useState([]);
-  const [reportingTo, setReportingTo] = useState([]);
-  const [selectedUserEmail, setSelectedUserEmail] = useState(
+  const [userData, setUserData] = useState([]);   //Stores the heirachy details
+  const [selectedUser, setSelectedUser] = useState(null);  //Stores the selected user in dropdown
+  const [sameDesignation, setSameDesignation] = useState([]);  //Stores users with same designation
+  const [reportingTo, setReportingTo] = useState([]);   //Stores users reporting to
+  const [selectedUserEmail, setSelectedUserEmail] = useState(  
     localStorage.getItem("email")
   );
 
@@ -43,16 +42,19 @@ function Chart({ chartdata }) {
     }
   }, []);
 
+  //Get detials when a user is selected in dropdown
   useEffect(() => {
     if (localStorage.getItem("email") !== null) {
       // to handle server crash
       if (selectedUser !== undefined && selectedUser !== null) {
         setSelectedUserEmail(selectedUser.email);
+        //Heirachy details
         callChartData({
           email: selectedUser.email,
           reportsTo: selectedUser.reportsTo,
           setUserData: setUserData,
         });
+        
 
         callSameDesignationData({
           email: selectedUser.email,
@@ -65,31 +67,12 @@ function Chart({ chartdata }) {
           setReportingTo: setReportingTo,
         });
 
-        // callReportingToData({
-        //   email: selectedUser.email,
-        //   setReportingTo: setReportingTo,
-        // });
-      } else {
-        callChartData({
-          email: localStorage.getItem("email"),
-          reportsTo: localStorage.getItem("reportsTo"),
-          setUserData: setUserData,
-        });
-
-        callSameDesignationData({
-          email: localStorage.getItem("email"),
-          reportsTo: localStorage.getItem("reportsTo"),
-          setSameDesignation: setSameDesignation,
-        });
-
-        callReportingToData({
-          email: localStorage.getItem("email"),
-          setReportingTo: setReportingTo,
-        });
+        
       }
     }
   }, [selectedUser]);
-
+  
+  //Template for search field
   const searchTemplate = (option, props) => {
     if (option) {
       return (
@@ -100,7 +83,8 @@ function Chart({ chartdata }) {
     }
     return <span>{props.placeholder}</span>;
   };
-
+  
+  //Template for options of dropdown
   const OptionTemplate = (option) => {
     return (
       <div className="flex align-items-center">
@@ -108,7 +92,8 @@ function Chart({ chartdata }) {
       </div>
     );
   };
-
+  
+  //To handle logout
   const handleLogout = () => {
     const cookie = localStorage.getItem("email");
     localStorage.clear();
@@ -170,9 +155,10 @@ function Chart({ chartdata }) {
           ))}
         </div>
 
+        {/* Folks in your rank  */}
         <SameDesignation sameDesignation={sameDesignation} selectedUserEmail={selectedUserEmail} />
 
-
+        {/* Reporting to you  */}
         <ReportingTo reportingTo={reportingTo} />
 
       </div>
